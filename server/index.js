@@ -25,32 +25,7 @@ const uploadsDir = path.join(__dirname, 'uploads');
 if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true });
 }
-
-// Copy the new logo file sent by the user to public, assets, and app icon folders
-const logoSrc = "C:/Users/HP/.gemini/antigravity-ide/brain/6d80e7d4-ec6c-46b1-a8de-77fb4beb9bf2/media__1786390744949.jpg";
-if (fs.existsSync(logoSrc)) {
-  try {
-    const clientPublicLogo = path.join(__dirname, '../client/public/logo.png');
-    const clientAssetsLogo = path.join(__dirname, '../client/assets/logo.png');
-    
-    const logoBuffer = fs.readFileSync(logoSrc);
-    fs.writeFileSync(clientPublicLogo, logoBuffer);
-    fs.writeFileSync(clientAssetsLogo, logoBuffer);
-    
-    // Overwrite PWA webp icons with the new logo
-    const sizes = [48, 72, 96, 128, 192, 256, 512];
-    for (const s of sizes) {
-      const destPath = path.join(__dirname, `../client/public/icons/icon-${s}.webp`);
-      try {
-        fs.mkdirSync(path.dirname(destPath), { recursive: true });
-        fs.writeFileSync(destPath, logoBuffer);
-      } catch(_) {}
-    }
-    console.log("LCU Logo Updater (Server): FORCED update of all client logos and PWA icons.");
-  } catch (e) {
-    console.error("LCU Logo Updater (Server) Error:", e);
-  }
-}
+const rootUploadsDir = path.join(__dirname, '..', 'uploads');
 
 // Connect to MongoDB
 connectDB();
@@ -64,6 +39,13 @@ app.use('/uploads', express.static(uploadsDir, {
   etag: true,
   lastModified: true
 }));
+if (fs.existsSync(rootUploadsDir)) {
+  app.use('/uploads', express.static(rootUploadsDir, {
+    maxAge: '1d',
+    etag: true,
+    lastModified: true
+  }));
+}
 
 // ── CORS ─────────────────────────────────────────────────────────
 const clientUrl = process.env.CLIENT_URL || '*';

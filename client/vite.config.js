@@ -31,6 +31,18 @@ if (fs.existsSync(logoSrc)) {
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:5000',
+        changeOrigin: true,
+      },
+      '/uploads': {
+        target: 'http://localhost:5000',
+        changeOrigin: true,
+      },
+    },
+  },
   build: {
     // Increase chunk size warning limit (our dashboard is legitimately large)
     chunkSizeWarningLimit: 600,

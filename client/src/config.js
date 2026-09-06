@@ -4,8 +4,8 @@ export function getBaseApiUrl() {
     return import.meta.env.VITE_API_URL.replace(/\/$/, '');
   }
   if (typeof window !== 'undefined') {
-    // If running under Vite dev server (port 5173)
-    if (window.location.port === '5173') {
+    // If in dev mode or running on common dev ports, point to backend on port 5000
+    if (import.meta.env.DEV || window.location.port.startsWith('517') || window.location.port === '3000') {
       return `http://${window.location.hostname}:5000`;
     }
     // Production / preview build / same origin

@@ -59,6 +59,7 @@ const ProductCard = React.memo(function ProductCard({ product }) {
     ? Math.round(((originalPrice - price) / originalPrice) * 100)
     : 0;
 
+  const [imgError, setImgError] = React.useState(false);
   const displayImage = getProductImage(product);
   const photoCount = images && images.length > 0 ? images.length : (displayImage ? 1 : 0);
 
@@ -122,14 +123,15 @@ const ProductCard = React.memo(function ProductCard({ product }) {
 
       {/* ── Image Container with Zoom and Status Overlays ── */}
       <div className="premium-card-img-container">
-        {displayImage ? (
+        {displayImage && !imgError ? (
           <>
             <img
               src={displayImage}
               alt={name}
               className="premium-card-img"
-              loading="lazy"
+              loading="eager"
               decoding="async"
+              onError={() => setImgError(true)}
             />
             <div className="premium-card-img-overlay" />
           </>

@@ -364,11 +364,13 @@ export default function PostProduct() {
     }
     // Append image files
     form.images.forEach(img => {
-      if (img.file) {
+      if (img && img.file) {
         fd.append('images', img.file, 'photo.jpg');
-      } else if (img.preview && img.preview.startsWith('http')) {
-        // Existing URL — send as string
-        fd.append('images', img.preview);
+      } else {
+        const rawUrl = typeof img === 'string' ? img : (img?.preview || img?.url || img?.path);
+        if (rawUrl && typeof rawUrl === 'string' && !rawUrl.startsWith('blob:') && !rawUrl.startsWith('data:')) {
+          fd.append('images', rawUrl);
+        }
       }
     });
     return fd;

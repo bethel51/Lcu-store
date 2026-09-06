@@ -25,7 +25,7 @@ export function resolveImageUrl(url) {
   }
 
   if (typeof url !== 'string' || !url.trim()) return '';
-  url = url.trim();
+  url = url.trim().replace(/\\/g, '/'); // Normalize all Windows backslashes
 
   // Return blob or data URLs directly (used for local uploads/previews)
   if (url.startsWith('blob:') || url.startsWith('data:')) {
@@ -34,9 +34,10 @@ export function resolveImageUrl(url) {
 
   const baseUrl = getBaseApiUrl();
 
-  // If the URL references server uploads (/uploads/...)
-  if (url.includes('/uploads/')) {
-    const uploadPath = url.substring(url.indexOf('/uploads/'));
+  // If the URL references server uploads (uploads/... or /uploads/...)
+  if (url.includes('uploads/')) {
+    const uploadIndex = url.indexOf('uploads/');
+    const uploadPath = '/' + url.substring(uploadIndex);
     return `${baseUrl}${uploadPath}`;
   }
 
@@ -52,12 +53,17 @@ export function resolveImageUrl(url) {
     return url;
   }
 
+  // If it's a bare filename (e.g. 178912389-photo.jpg)
+  if (!url.includes('/') && !url.includes(':') && /\.(jpe?g|png|webp|gif|svg|avif)$/i.test(url)) {
+    return `${baseUrl}/uploads/${url}`;
+  }
+
   // Fallback for relative paths starting with '/'
   if (url.startsWith('/')) {
     return `${baseUrl}${url}`;
   }
 
-  return url;
+  return `${baseUrl}/${url}`;
 }
 
 /**
