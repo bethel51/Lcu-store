@@ -108,13 +108,24 @@ router.get('/', async (req, res) => {
     }
 
     const products = await Product.find(query)
+      .select('-description') // Omit heavy description from feed list (loaded on /:id)
       .populate('seller', 'name isVerifiedStudent email isPro')
       .sort({ isBoosted: -1, isFeatured: -1, createdAt: -1 })
       .lean();
 
-    // No caching — always return fresh listings so new posts appear immediately
-    res.set('Cache-Control', 'no-store, no-cache, must-revalidate');
-    res.json(products);
+    // Optimize feed payload size: send only primary thumbnail image in listing
+    const feedProducts = products.map(p => {
+      const primary = p.images?.[0] || p.image || '';
+      return {
+        ...p,
+        image: primary,
+        images: primary ? [primary] : [],
+        photoCount: p.images?.length || (p.image ? 1 : 0)
+      };
+    });
+
+    res.set('Cache-Control', 'public, max-age=5, stale-while-revalidate=20');
+    res.json(feedProducts);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -128,10 +139,24 @@ router.get('/featured', async (req, res) => {
       status: 'Available',
       productStatus: { $in: ['Available', 'Reserved'] }
     })
+      .select('-description')
       .populate('seller', 'name isVerifiedStudent email isPro')
       .sort({ createdAt: -1 })
-      .limit(10);
-    res.json(products);
+      .limit(10)
+      .lean();
+
+    const feedFeatured = products.map(p => {
+      const primary = p.images?.[0] || p.image || '';
+      return {
+        ...p,
+        image: primary,
+        images: primary ? [primary] : [],
+        photoCount: p.images?.length || (p.image ? 1 : 0)
+      };
+    });
+
+    res.set('Cache-Control', 'public, max-age=10, stale-while-revalidate=30');
+    res.json(feedFeatured);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

@@ -59,25 +59,28 @@ const ProductCard = React.memo(function ProductCard({ product }) {
     ? Math.round(((originalPrice - price) / originalPrice) * 100)
     : 0;
 
-  const displayImage = getProductImage(product);
+  const displayImage = getProductImage(product, true);
   const fallbackImage = getCategoryFallback(category, name);
   const [currentImg, setCurrentImg] = React.useState(displayImage || fallbackImage);
   const [hasError, setHasError] = React.useState(false);
+  const [imgLoaded, setImgLoaded] = React.useState(false);
 
   React.useEffect(() => {
     setCurrentImg(displayImage || fallbackImage);
     setHasError(false);
+    setImgLoaded(false);
   }, [displayImage, fallbackImage]);
 
   const handleImgError = () => {
     if (currentImg !== fallbackImage) {
       setCurrentImg(fallbackImage);
+      setImgLoaded(false);
     } else {
       setHasError(true);
     }
   };
 
-  const photoCount = images && images.length > 0 ? images.length : (currentImg ? 1 : 0);
+  const photoCount = product.photoCount || (images && images.length > 0 ? images.length : (currentImg ? 1 : 0));
 
   // Condition styling helper
   const getConditionColor = (c) => {
@@ -139,15 +142,29 @@ const ProductCard = React.memo(function ProductCard({ product }) {
 
       {/* ── Image Container with Zoom and Status Overlays ── */}
       <div className="premium-card-img-container">
+        {/* Shimmer placeholder while image downloads */}
+        {!imgLoaded && !hasError && currentImg && (
+          <div style={styles.shimmerPlaceholder}>
+            <span style={{ fontSize: '1.8rem', opacity: 0.35, filter: 'grayscale(0.4)' }}>
+              {getCategoryEmoji(category)}
+            </span>
+          </div>
+        )}
+
         {currentImg && !hasError ? (
           <>
             <img
               src={currentImg}
               alt={name}
               className="premium-card-img"
-              loading="eager"
+              loading="lazy"
               decoding="async"
+              onLoad={() => setImgLoaded(true)}
               onError={handleImgError}
+              style={{
+                opacity: imgLoaded ? 1 : 0,
+                transition: 'opacity 0.25s ease-in-out',
+              }}
             />
             <div className="premium-card-img-overlay" />
           </>
@@ -548,5 +565,16 @@ const styles = {
     justifyContent: 'center',
     width: '100%',
     height: '100%',
+  },
+  shimmerPlaceholder: {
+    position: 'absolute',
+    inset: 0,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    background: 'linear-gradient(110deg, rgba(30, 41, 59, 0.4) 8%, rgba(51, 65, 85, 0.6) 18%, rgba(30, 41, 59, 0.4) 33%)',
+    backgroundSize: '200% 100%',
+    animation: 'shimmer 1.5s linear infinite',
+    zIndex: 0,
   },
 };

@@ -3,11 +3,18 @@ import ProductCard from '../components/ProductCard';
 import { useAuth } from '../context/AuthContext';
 import { API_URL } from '../config';
 
+// In-memory cache for instant 0ms back-navigation and perceived instant loading
+let cachedMarketplaceData = {
+  products: null,
+  featured: null,
+  timestamp: 0,
+};
+
 export default function Marketplace() {
   const { token, user } = useAuth();
-  const [allProducts, setAllProducts] = useState([]);
-  const [featuredProducts, setFeaturedProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [allProducts, setAllProducts] = useState(() => cachedMarketplaceData.products || []);
+  const [featuredProducts, setFeaturedProducts] = useState(() => cachedMarketplaceData.featured || []);
+  const [loading, setLoading] = useState(() => !cachedMarketplaceData.products);
 
   // Search & Filter state
   const [search, setSearch] = useState('');
@@ -55,15 +62,12 @@ export default function Marketplace() {
     }
   };
 
-  const fetchProducts = async () => {
-    setLoading(true);
+  const fetchProducts = async (isBackground = false) => {
+    // Only show full page spinner if we don't already have cached items to display
+    if (!isBackground && allProducts.length === 0) {
+      setLoading(true);
+    }
     try {
-      // Fetch featured products — no-store so new PRO featured listings appear instantly
-      const featRes = await fetch(`${API_URL}/api/products/featured`, { cache: 'no-store' });
-      if (featRes.ok) {
-        setFeaturedProducts(await featRes.json());
-      }
-
       let url = `${API_URL}/api/products?status=Available`;
       if (search)  url += `&search=${encodeURIComponent(search)}`;
       if (hostel  && hostel  !== 'All') url += `&hostel=${encodeURIComponent(hostel)}`;
@@ -71,12 +75,28 @@ export default function Marketplace() {
       if (minPrice) url += `&minPrice=${encodeURIComponent(minPrice)}`;
       if (maxPrice) url += `&maxPrice=${encodeURIComponent(maxPrice)}`;
 
-      // cache: 'no-store' forces browser to bypass cache — new listings appear immediately
-      const response = await fetch(url, { cache: 'no-store' });
-      const data = await response.json();
-      if (response.ok) {
-        const activeAndSafe = data.filter(p => !p.reports || p.reports.length <= 2);
+      // Execute featured and main catalog queries in parallel — saves 50% network time
+      const [featPromise, prodPromise] = await Promise.allSettled([
+        fetch(`${API_URL}/api/products/featured`),
+        fetch(url)
+      ]);
+
+      if (featPromise.status === 'fulfilled' && featPromise.value.ok) {
+        const featData = await featPromise.value.json();
+        setFeaturedProducts(featData);
+        cachedMarketplaceData.featured = featData;
+      }
+
+      if (prodPromise.status === 'fulfilled' && prodPromise.value.ok) {
+        const prodData = await prodPromise.value.json();
+        const activeAndSafe = Array.isArray(prodData)
+          ? prodData.filter(p => !p.reports || p.reports.length <= 2)
+          : [];
         setAllProducts(activeAndSafe);
+        if (!search && hostel === 'All' && faculty === 'All' && !minPrice && !maxPrice) {
+          cachedMarketplaceData.products = activeAndSafe;
+          cachedMarketplaceData.timestamp = Date.now();
+        }
       }
     } catch (err) {
       console.error('Error fetching products:', err);
@@ -86,7 +106,10 @@ export default function Marketplace() {
   };
 
   useEffect(() => {
-    const delayDebounceFn = setTimeout(() => fetchProducts(), 300);
+    const isFiltered = search || hostel !== 'All' || faculty !== 'All' || minPrice || maxPrice;
+    const delayDebounceFn = setTimeout(() => {
+      fetchProducts(Boolean(cachedMarketplaceData.products && !isFiltered));
+    }, isFiltered ? 300 : 0);
     return () => clearTimeout(delayDebounceFn);
   }, [search, hostel, faculty, minPrice, maxPrice]);
 

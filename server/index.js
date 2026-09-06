@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import compression from 'compression';
 import connectDB from './config/db.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -32,6 +33,9 @@ connectDB();
 
 const app = express();
 app.set('trust proxy', 1); // trust first proxy (e.g. Render, Heroku)
+
+// ── HTTP Gzip/Deflate Compression ─────────────────────────────────
+app.use(compression());
 
 // ── Static files ─────────────────────────────────────────────────
 app.use('/uploads', express.static(uploadsDir, {
