@@ -5,7 +5,7 @@ import { useToast } from '../context/ToastContext';
 import { useCart } from '../context/CartContext';
 import { API_URL } from '../config';
 import { VerifiedBadge } from '../components/ProductCard';
-import { resolveImageUrl } from '../utils/imageUrl';
+import { resolveImageUrl, getCategoryFallback } from '../utils/imageUrl';
 
 export default function ProductDetails() {
   const { id } = useParams();
@@ -358,7 +358,9 @@ export default function ProductDetails() {
 
         {/* Main Product Image */}
         {(() => {
-          const imagesList = (product.images && product.images.length > 0) ? product.images : (product.image ? [product.image] : []);
+          const fallbackImg = getCategoryFallback(product.category, product.name);
+          const rawList = (product.images && product.images.length > 0) ? product.images : (product.image ? [product.image] : []);
+          const imagesList = rawList.length > 0 ? rawList : [fallbackImg];
           return (
             <>
               {imagesList.length > 0 ? (
@@ -378,71 +380,82 @@ export default function ProductDetails() {
                 >
                   {imagesList.map((img, idx) => (
                     <div 
-                      key={idx} 
-                      style={{ 
-                        flex: '0 0 100%', 
-                        width: '100%', 
-                        height: '100%', 
-                        scrollSnapAlign: 'start',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center'
-                      }}
-                    >
-                      <img 
-                        src={resolveImageUrl(img)} 
-                        alt={`${product.name} - view ${idx + 1}`} 
-                        loading="eager"
-                        decoding="async"
-                        onError={(e) => {
-                          e.target.style.display = 'none';
-                        }}
-                        style={{ width: '100%', height: '100%', objectFit: 'contain' }} 
-                      />
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(255,255,255,0.05)', fontSize: '3rem' }}>
-                  🖼️
-                </div>
-              )}
-
-              {/* Interactive Thumbnail Row */}
-              {imagesList.length > 1 && (
-                <div style={{ position: 'absolute', bottom: '16px', left: '0', right: '0', display: 'flex', justifyContent: 'center', gap: '8px', zIndex: 10 }}>
-                  {imagesList.map((img, idx) => (
-                    <button
-                      key={idx}
-                      onClick={(e) => {
-                        // Find the scroll container relative to this button row and scroll smoothly
-                        const container = e.currentTarget.parentElement.previousSibling;
-                        if (container) {
-                          container.scrollTo({
-                            left: idx * container.clientWidth,
-                            behavior: 'smooth'
-                          });
-                        }
-                        setActiveImgIndex(idx);
-                      }}
-                      style={{
-                        width: '44px',
-                        height: '44px',
-                        borderRadius: '8px',
-                        border: activeImgIndex === idx ? '2px solid var(--gold)' : '2px solid rgba(255,255,255,0.5)',
-                        padding: 0,
-                        overflow: 'hidden',
-                        cursor: 'pointer',
-                        background: '#1a1a1a',
-                        boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
-                        transition: 'border-color 0.2s'
-                      }}
-                    >
-                      <img src={resolveImageUrl(img)} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                    </button>
-                  ))}
-                </div>
-              )}
+                       key={idx} 
+                       style={{ 
+                         flex: '0 0 100%', 
+                         width: '100%', 
+                         height: '100%', 
+                         scrollSnapAlign: 'start',
+                         display: 'flex',
+                         alignItems: 'center',
+                         justifyContent: 'center'
+                       }}
+                     >
+                       <img 
+                         src={resolveImageUrl(img) || fallbackImg} 
+                         alt={`${product.name} - view ${idx + 1}`} 
+                         loading="eager"
+                         decoding="async"
+                         onError={(e) => {
+                           if (e.target.src !== fallbackImg) {
+                             e.target.src = fallbackImg;
+                           }
+                         }}
+                         style={{ width: '100%', height: '100%', objectFit: 'contain' }} 
+                       />
+                     </div>
+                   ))}
+                 </div>
+               ) : (
+                 <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(255,255,255,0.05)', fontSize: '3rem' }}>
+                   🖼️
+                 </div>
+               )}
+ 
+               {/* Interactive Thumbnail Row */}
+               {imagesList.length > 1 && (
+                 <div style={{ position: 'absolute', bottom: '16px', left: '0', right: '0', display: 'flex', justifyContent: 'center', gap: '8px', zIndex: 10 }}>
+                   {imagesList.map((img, idx) => (
+                     <button
+                       key={idx}
+                       onClick={(e) => {
+                         // Find the scroll container relative to this button row and scroll smoothly
+                         const container = e.currentTarget.parentElement.previousSibling;
+                         if (container) {
+                           container.scrollTo({
+                             left: idx * container.clientWidth,
+                             behavior: 'smooth'
+                           });
+                         }
+                         setActiveImgIndex(idx);
+                       }}
+                       style={{
+                         width: '44px',
+                         height: '44px',
+                         borderRadius: '8px',
+                         border: activeImgIndex === idx ? '2px solid var(--gold)' : '2px solid rgba(255,255,255,0.5)',
+                         padding: 0,
+                         overflow: 'hidden',
+                         cursor: 'pointer',
+                         background: '#1a1a1a',
+                         boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
+                         transition: 'border-color 0.2s'
+                       }}
+                     >
+                       <img 
+                         src={resolveImageUrl(img) || fallbackImg} 
+                         alt="" 
+                         onError={(e) => {
+                           if (e.target.src !== fallbackImg) {
+                             e.target.src = fallbackImg;
+                           }
+                         }}
+                         style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                       />
+                     </button>
+                   ))}
+                 </div>
+               )}
             </>
           );
         })()}

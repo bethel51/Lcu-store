@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
-import { getProductImage } from '../utils/imageUrl';
+import { getProductImage, getCategoryFallback } from '../utils/imageUrl';
 
 const ProductCard = React.memo(function ProductCard({ product }) {
   const {
@@ -59,9 +59,25 @@ const ProductCard = React.memo(function ProductCard({ product }) {
     ? Math.round(((originalPrice - price) / originalPrice) * 100)
     : 0;
 
-  const [imgError, setImgError] = React.useState(false);
   const displayImage = getProductImage(product);
-  const photoCount = images && images.length > 0 ? images.length : (displayImage ? 1 : 0);
+  const fallbackImage = getCategoryFallback(category, name);
+  const [currentImg, setCurrentImg] = React.useState(displayImage || fallbackImage);
+  const [hasError, setHasError] = React.useState(false);
+
+  React.useEffect(() => {
+    setCurrentImg(displayImage || fallbackImage);
+    setHasError(false);
+  }, [displayImage, fallbackImage]);
+
+  const handleImgError = () => {
+    if (currentImg !== fallbackImage) {
+      setCurrentImg(fallbackImage);
+    } else {
+      setHasError(true);
+    }
+  };
+
+  const photoCount = images && images.length > 0 ? images.length : (currentImg ? 1 : 0);
 
   // Condition styling helper
   const getConditionColor = (c) => {
@@ -123,15 +139,15 @@ const ProductCard = React.memo(function ProductCard({ product }) {
 
       {/* ── Image Container with Zoom and Status Overlays ── */}
       <div className="premium-card-img-container">
-        {displayImage && !imgError ? (
+        {currentImg && !hasError ? (
           <>
             <img
-              src={displayImage}
+              src={currentImg}
               alt={name}
               className="premium-card-img"
               loading="eager"
               decoding="async"
-              onError={() => setImgError(true)}
+              onError={handleImgError}
             />
             <div className="premium-card-img-overlay" />
           </>

@@ -66,9 +66,55 @@ export function resolveImageUrl(url) {
   return `${baseUrl}/${url}`;
 }
 
+export const CATEGORY_FALLBACKS = {
+  'Gadgets': 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&auto=format&fit=crop&q=80',
+  'Hostel Items': 'https://images.unsplash.com/photo-1594213114663-d94db9b17125?w=800&auto=format&fit=crop&q=80',
+  'Clothing & Fashion': 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800&auto=format&fit=crop&q=80',
+  'Textbooks & Handouts': 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=800&auto=format&fit=crop&q=80',
+  'Services': 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&auto=format&fit=crop&q=80',
+  'Others': 'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=800&auto=format&fit=crop&q=80',
+};
+
+/**
+ * Returns a vivid, high-resolution fallback image based on product name and category.
+ * Used when a product has no image or its image 404s on the server.
+ */
+export function getCategoryFallback(category, name = '') {
+  const n = (name || '').toLowerCase();
+  if (n.includes('water') || n.includes('bottle')) {
+    return 'https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=800&auto=format&fit=crop&q=80';
+  }
+  if (n.includes('earpiece') || n.includes('earphone') || n.includes('headphone') || n.includes('sound') || n.includes('audio')) {
+    return 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&auto=format&fit=crop&q=80';
+  }
+  if (n.includes('cooler') || n.includes('kettle') || n.includes('lamp') || n.includes('mattress') || n.includes('fan')) {
+    return 'https://images.unsplash.com/photo-1594213114663-d94db9b17125?w=800&auto=format&fit=crop&q=80';
+  }
+  if (n.includes('snooker') || n.includes('game') || n.includes('table') || n.includes('billiard')) {
+    return 'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=800&auto=format&fit=crop&q=80';
+  }
+  if (n.includes('calculator') || n.includes('laptop') || n.includes('hp') || n.includes('phone') || n.includes('macbook')) {
+    return 'https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=800&auto=format&fit=crop&q=80';
+  }
+  if (n.includes('book') || n.includes('calculus') || n.includes('handout') || n.includes('block') || n.includes('cement')) {
+    return 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=800&auto=format&fit=crop&q=80';
+  }
+  if (n.includes('money') || n.includes('cash') || n.includes('wallet')) {
+    return 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=800&auto=format&fit=crop&q=80';
+  }
+  if (n.includes('toothpick') || n.includes('can') || n.includes('cup') || n.includes('plate')) {
+    return 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=800&auto=format&fit=crop&q=80';
+  }
+  if (n.includes('cloth') || n.includes('bag') || n.includes('shoe') || n.includes('backpack') || n.includes('shirt') || n.includes('trouser')) {
+    return 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800&auto=format&fit=crop&q=80';
+  }
+  return CATEGORY_FALLBACKS[category] || CATEGORY_FALLBACKS['Others'];
+}
+
 /**
  * Returns the resolved display image URL for a product object.
  * Checks `images[0]` first, then `image`.
+ * If neither exists, returns a matching category fallback image.
  */
 export function getProductImage(product) {
   if (!product) return '';
@@ -78,5 +124,6 @@ export function getProductImage(product) {
   } else if (product.image) {
     raw = product.image;
   }
-  return resolveImageUrl(raw);
+  const resolved = resolveImageUrl(raw);
+  return resolved || getCategoryFallback(product.category, product.name);
 }
