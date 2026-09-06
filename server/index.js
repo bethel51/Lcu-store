@@ -47,10 +47,6 @@ if (fs.existsSync(rootUploadsDir)) {
   }));
 }
 
-// Fallback for missing uploaded files on ephemeral hosts (e.g. Render container restarts)
-app.use('/uploads', (req, res) => {
-  return res.redirect(302, 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&auto=format&fit=crop&q=80');
-});
 
 // ── CORS ─────────────────────────────────────────────────────────
 const clientUrl = process.env.CLIENT_URL || '*';
