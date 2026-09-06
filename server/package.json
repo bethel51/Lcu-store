@@ -1,7 +1,7 @@
 {
-  "name": "lcu-marketplace-server",
+  "name": "lcu-store-server",
   "version": "1.0.0",
-  "description": "Lead City Marketplace Backend",
+  "description": "Lead City Store Backend",
   "main": "index.js",
   "type": "module",
   "scripts": {

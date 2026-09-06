@@ -11,7 +11,6 @@ import authRoutes from './routes/authRoutes.js';
 import productRoutes from './routes/productRoutes.js';
 import paymentRoutes from './routes/paymentRoutes.js';
 import notificationRoutes from './routes/notificationRoutes.js';
-import integrationRoutes from './routes/integrationRoutes.js';
 
 // Rate limiters
 import { strictLimiter, paymentLimiter, writeLimiter, generalLimiter } from './middleware/rateLimiter.js';
@@ -98,9 +97,6 @@ app.use('/api/payments', paymentLimiter, paymentRoutes);
 
 // Notifications: general limit — quick reads
 app.use('/api/notifications', generalLimiter, notificationRoutes);
-
-// Integration with LCU Errands
-app.use('/api/integration', generalLimiter, integrationRoutes);
 
 // ── Global 404 handler ───────────────────────────────────────────
 app.use((req, res, next) => {
