@@ -472,7 +472,7 @@ export default function ProDashboard() {
               <CrownIcon size={32} style={{ color: '#fbbf24', fill: 'rgba(251,191,36,0.2)' }} />
             </div>
             <div>
-              <div className="pro-hero-title">LCU MARKETPLACE PRO</div>
+              <div className="pro-hero-title">LEADCITY STORE PRO</div>
               <div className="pro-hero-sub">
                 <ProBadge size="lg" /> You're a Pro Seller
               </div>
@@ -980,8 +980,8 @@ export default function ProDashboard() {
           ) : (
             <div className="pro-empty-state">
               <div style={{ marginBottom: 12, display: 'flex', justifyContent: 'center' }}><BagIcon size={44} style={{ color: 'var(--text-gray)' }} /></div>
-              <p>Your bag is empty. Browse the marketplace and save items you love.</p>
-              <Link to="/marketplace" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, marginTop: 12, background: 'rgba(245,158,11,0.15)', color: '#fbbf24', border: '1px solid rgba(245,158,11,0.3)', padding: '10px 22px', borderRadius: 10, fontWeight: 700, textDecoration: 'none', fontSize: '0.85rem' }}><BagIcon size={14} /> Browse Marketplace</Link>
+              <p>Your bag is empty. Browse the store and save items you love.</p>
+              <Link to="/marketplace" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, marginTop: 12, background: 'rgba(245,158,11,0.15)', color: '#fbbf24', border: '1px solid rgba(245,158,11,0.3)', padding: '10px 22px', borderRadius: 10, fontWeight: 700, textDecoration: 'none', fontSize: '0.85rem' }}><BagIcon size={14} /> Browse Store</Link>
             </div>
           )}
         </div>

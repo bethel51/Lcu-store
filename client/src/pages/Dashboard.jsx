@@ -527,7 +527,7 @@ export default function Dashboard() {
             )}
             <Link to="/post" className="dash-action-btn primary">＋ Post New Listing</Link>
             <button onClick={handleCopyProfileLink} className="dash-action-btn">🔗 Copy Store Link</button>
-            <Link to="/marketplace" className="dash-action-btn">🛍️ Browse Marketplace</Link>
+            <Link to="/marketplace" className="dash-action-btn">🛍️ Browse Store</Link>
           </div>
         </aside>
 
@@ -1187,8 +1187,8 @@ export default function Dashboard() {
                 <div className="dash-empty">
                   <div className="dash-empty-icon">👜</div>
                   <p className="dash-empty-title">Your bag is empty</p>
-                  <p className="dash-empty-sub">Browse the marketplace and add items to your bag.</p>
-                  <Link to="/marketplace" className="btn-secondary">🛍️ Browse Marketplace</Link>
+                  <p className="dash-empty-sub">Browse the store and add items to your bag.</p>
+                  <Link to="/marketplace" className="btn-secondary">🛍️ Browse Store</Link>
                 </div>
               )}
             </>

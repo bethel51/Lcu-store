@@ -526,7 +526,7 @@ router.post('/admin/broadcast', protect, async (req, res) => {
       return res.status(400).json({ message: 'Message is required.' });
     }
     const allUsers = await User.find({}).select('name email');
-    const subject = `📢 LCU Marketplace: announcement [${type.toUpperCase()}]`;
+    const subject = `📢 LCU Store: announcement [${type.toUpperCase()}]`;
 
     // E-mail all users
     for (const u of allUsers) {

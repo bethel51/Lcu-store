@@ -302,7 +302,7 @@ export default function ProductDetails() {
     }
     let rawPhone = sellerObj.phoneNumber.trim().replace(/\D/g, '');
     if (rawPhone.startsWith('0')) rawPhone = '234' + rawPhone.slice(1);
-    const text = encodeURIComponent(`Hi ${sellerObj.name || 'Seller'}, I'm interested in buying your "${product.name}" listed for ₦${product.price?.toLocaleString()} on LCU Marketplace.`);
+    const text = encodeURIComponent(`Hi ${sellerObj.name || 'Seller'}, I'm interested in buying your "${product.name}" listed for ₦${product.price?.toLocaleString()} on Lead City Store (LCS).`);
     window.open(`https://wa.me/${rawPhone}?text=${text}`, '_blank');
   };
 
@@ -318,7 +318,7 @@ export default function ProductDetails() {
     return (
       <div style={styles.center} className="container">
         <p style={{ color: 'var(--error)' }}>{error || 'Listing not found'}</p>
-        <Link to="/" className="btn-secondary" style={{ marginTop: '16px' }}>Back to Marketplace</Link>
+        <Link to="/" className="btn-secondary" style={{ marginTop: '16px' }}>Back to Store</Link>
       </div>
     );
   }

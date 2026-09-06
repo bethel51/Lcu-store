@@ -130,7 +130,7 @@ export default function Landing() {
             {user ? (
               <>
                 <Link to="/marketplace" className="btn-primary landing-btn-lg">
-                  Browse Marketplace →
+                  Browse Store →
                 </Link>
                 <Link to="/post" className="btn-secondary landing-btn-lg">
                   + Post an Item
@@ -228,7 +228,7 @@ export default function Landing() {
         className={`landing-section observe-section${visibleSection['features-section'] ? ' section-visible' : ''}`}
       >
         <div className="container">
-          <p className="landing-section-eyebrow">Why LCU Marketplace?</p>
+          <p className="landing-section-eyebrow">Why Lead City Store?</p>
           <h2 className="landing-section-title">Built for LCU Students, by LCU Students</h2>
           <div className="landing-features-grid">
             {features.map((f, i) => (
@@ -279,7 +279,7 @@ export default function Landing() {
             <div className="landing-cta-orb" aria-hidden="true" />
             <div className="landing-cta-badge">🎓 LCU Students Only</div>
             <h2 className="landing-cta-title">
-              Ready to Join the LCU Marketplace?
+              Ready to Join Lead City Store?
             </h2>
             <p className="landing-cta-sub">
               Sign up in under a minute. Start buying, selling, and connecting with fellow LCU students today.
@@ -287,7 +287,7 @@ export default function Landing() {
             <div className="landing-cta-actions">
               {user ? (
                 <Link to="/marketplace" className="btn-primary landing-btn-lg">
-                  Go to Marketplace →
+                  Go to Store →
                 </Link>
               ) : (
                 <>

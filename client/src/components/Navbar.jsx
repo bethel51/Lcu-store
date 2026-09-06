@@ -228,7 +228,7 @@ export default function Navbar() {
       <nav className="top-nav glass-panel">
         <div className="top-nav-container">
           <Link to="/admin" className="nav-brand">
-            <img src="/logo.png?v=2" alt="LCU Logo" width="36" height="36" className="nav-logo-img" style={{ borderRadius:'10px', objectFit:'contain' }} />
+            <img src="/logo.png?v=3" alt="LCS Logo" width="36" height="36" className="nav-logo-img" style={{ borderRadius:'10px', objectFit:'contain' }} />
             <div className="nav-brand-text">
               <span className="nav-brand-title">Lead City</span>
               <span className="nav-brand-sub">ADMIN</span>
@@ -250,13 +250,13 @@ export default function Navbar() {
 
           {/* Brand */}
           <Link to={user ? '/marketplace' : '/'} className="nav-brand">
-            <img src="/logo.png?v=2" alt="LCU Logo" width="38" height="38" className="nav-logo-img"
+            <img src="/logo.png?v=3" alt="LCS Logo" width="38" height="38" className="nav-logo-img"
               style={{ borderRadius:'10px', objectFit:'contain' }}
               fetchpriority="high" decoding="async" loading="eager"
             />
             <div className="nav-brand-text">
               <span className="nav-brand-title">Lead City</span>
-              <span className="nav-brand-sub">MARKETPLACE</span>
+              <span className="nav-brand-sub">STORE</span>
             </div>
           </Link>
 
@@ -271,7 +271,7 @@ export default function Navbar() {
             {/* Desktop nav links */}
             {user ? (
               <div className="nav-desktop-links">
-                <Link to="/marketplace" className={`nav-link${isActive('/marketplace') ? ' active' : ''}`}>Marketplace</Link>
+                <Link to="/marketplace" className={`nav-link${isActive('/marketplace') ? ' active' : ''}`}>Store</Link>
                 {/* PRO sellers go to /pro-dashboard, standard sellers/buyers go to /profile */}
                 <Link
                   to={user.isPro ? '/pro-dashboard' : '/profile'}
@@ -285,7 +285,7 @@ export default function Navbar() {
               </div>
             ) : (
               <div className="nav-desktop-links">
-                <Link to="/marketplace" className={`nav-link${isActive('/marketplace') ? ' active' : ''}`}>Browse</Link>
+                <Link to="/marketplace" className={`nav-link${isActive('/marketplace') ? ' active' : ''}`}>Store</Link>
                 <Link to="/auth" className="btn-primary nav-post-btn">Login / Sign Up</Link>
               </div>
             )}
@@ -455,7 +455,7 @@ export default function Navbar() {
           ═══════════════════════════════════════════════════════ */}
       {user && !user.isAdmin && !location.pathname.startsWith('/product/') && !location.pathname.startsWith('/checkout/') && (
         <nav className="bottom-tab-bar" aria-label="Main navigation">
-          {/* 1. Market */}
+          {/* 1. Store */}
           <Link to="/marketplace" className={`btab-item${isActive('/marketplace') ? ' btab-active' : ''}`}>
             <span className="btab-icon">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -463,7 +463,7 @@ export default function Navbar() {
                 <path d="M16 10a4 4 0 01-8 0"/>
               </svg>
             </span>
-            <span className="btab-label">Market</span>
+            <span className="btab-label">Store</span>
             {isActive('/marketplace') && <span className="btab-dot" />}
           </Link>
 

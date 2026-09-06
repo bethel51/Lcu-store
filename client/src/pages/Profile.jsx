@@ -317,7 +317,7 @@ export default function Profile() {
               ) : (
                 <div style={styles.emptyState} className="glass-panel">
                   <p>Your bag is currently empty.</p>
-                  <Link to="/" className="btn-secondary" style={{ marginTop: '12px' }}>Browse Marketplace</Link>
+                  <Link to="/marketplace" className="btn-secondary" style={{ marginTop: '12px' }}>Browse Store</Link>
                 </div>
               )
             )}

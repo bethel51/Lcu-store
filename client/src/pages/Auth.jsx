@@ -183,8 +183,8 @@ export default function Auth() {
     forgotSuccess: 'Password Reset!',
   };
   const subtitles = {
-    login: 'Access the exclusive Lead City University marketplace',
-    register: 'Join LCU student hub to buy, sell, and offer student services',
+    login: 'Access the official Lead City Store (LCS)',
+    register: 'Join the LCU student hub to buy, sell, and connect',
     verifyOtp: `Enter the 6-digit OTP sent to ${email}`,
     forgotRequest: 'Enter your registered student email to receive a reset code',
     forgotVerify: `Enter the code sent to ${forgotEmail} and choose a new password`,
@@ -203,8 +203,8 @@ export default function Auth() {
         {/* ── LCU Logo ──────────────────────────────────────── */}
         <div style={styles.logoWrap}>
           <img
-            src="/logo.png?v=2"
-            alt="LCU Marketplace Logo"
+            src="/logo.png?v=3"
+            alt="Lead City Store Logo"
             style={styles.logoImg}
             fetchpriority="high"
             decoding="async"

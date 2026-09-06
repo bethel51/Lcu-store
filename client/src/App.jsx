@@ -170,9 +170,9 @@ function SplashScreen({ fadeOut }) {
   return (
     <div className={`splash-screen-container${fadeOut ? ' splash-fade-out' : ''}`}>
       <div className="splash-content splash-logo-animate">
-        <img src="/logo.png?v=2" alt="LCU Logo" className="splash-logo" />
-        <h1 className="splash-title">Lead City Marketplace</h1>
-        <p className="splash-subtitle">LCU Errands & Student Hub</p>
+        <img src="/logo.png?v=3" alt="LCS Logo" className="splash-logo" />
+        <h1 className="splash-title">Lead City Store</h1>
+        <p className="splash-subtitle">LCS • Buy, Sell, Connect</p>
         <div className="splash-loader">
           <div className="splash-spinner splash-spinner-animate" />
         </div>
@@ -260,7 +260,7 @@ function AppContent() {
             </div>
             {/* Footer — hidden on mobile when bottom nav is present */}
             <footer style={styles.footer} className={user && !user.isAdmin ? 'footer-desktop-only' : ''}>
-              <p>© {new Date().getFullYear()} Lead City University Student Marketplace Hub. All rights reserved.</p>
+              <p>© {new Date().getFullYear()} Lead City Store (LCS). All rights reserved.</p>
             </footer>
           </div>
         </Router>

@@ -228,7 +228,7 @@ export default function AdminDashboard() {
         <div className="dash-banner" style={{ background: 'linear-gradient(135deg, rgba(239,68,68,0.12) 0%, var(--bg-card) 100%)' }}>
           <div>
             <h1 className="dash-banner-title">🛡️ Admin Control Panel</h1>
-            <p className="dash-banner-sub">LCU Marketplace — Manage users, listings, and orders</p>
+            <p className="dash-banner-sub">Lead City Store (LCS) — Manage users, listings, and orders</p>
           </div>
           <button onClick={loadAdminData} className="btn-secondary" style={{ padding: '8px 16px', fontSize: '0.82rem' }}>🔄 Refresh</button>
         </div>

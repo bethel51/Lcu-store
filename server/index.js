@@ -131,7 +131,7 @@ if (process.env.NODE_ENV === 'production') {
   });
 } else {
   app.get('/', (req, res) => {
-    res.json({ message: 'LCU Marketplace API', status: 'Running', version: '1.0.0' });
+    res.json({ message: 'LCU Store API', status: 'Running', version: '1.0.0' });
   });
 }
 

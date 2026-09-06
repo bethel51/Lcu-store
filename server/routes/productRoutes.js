@@ -327,7 +327,7 @@ router.post('/', protect, writeLimiter, handleUpload, async (req, res) => {
 
     await createNotification(
       req.user._id,
-      `🎉 Your listing "${name}" is now live on the marketplace!`,
+      `🎉 Your listing "${name}" is now live on LCU Store!`,
       'success'
     );
   } catch (error) {

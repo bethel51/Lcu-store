@@ -193,7 +193,7 @@ export default function Bag() {
             Browse the student listings and save items you want to buy.
           </p>
           <Link to="/marketplace" className="btn-primary" style={{ padding: '12px 28px', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
-            <ShopIcon size={16} /> Browse Marketplace
+            <ShopIcon size={16} /> Browse Store
           </Link>
         </div>
       ) : (

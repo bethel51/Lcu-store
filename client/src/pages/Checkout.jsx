@@ -616,7 +616,7 @@ export default function Checkout() {
             </div>
             
             <p style={{ fontSize: '0.88rem', color: '#9ca3af', lineHeight: '1.5' }}>
-              You are completing a payment for LCU Marketplace Student Trade portal. This transaction is processed via secure escrow.
+              You are completing a payment for Lead City Store (LCS) Student Trade portal. This transaction is processed via secure escrow.
             </p>
 
             <div className="item-details-box">

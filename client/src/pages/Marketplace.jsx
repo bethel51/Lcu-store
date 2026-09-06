@@ -199,7 +199,7 @@ export default function Marketplace() {
       <header className="mkt-header">
         <div className="mkt-header-text">
           <h1 className="mkt-title">
-            Student <span style={{ color: 'var(--gold)' }}>Marketplace</span>
+            Student <span style={{ color: 'var(--gold)' }}>Store</span>
           </h1>
           <p className="mkt-subtitle">
             Browse listings from verified LCU students — gadgets, textbooks, hostel items &amp; more.
@@ -226,7 +226,7 @@ export default function Marketplace() {
           <input
             id="marketplace-search"
             type="text"
-            placeholder="Search listings… (e.g. Laptop, Fridge, Physics textbook)"
+            placeholder="Search store listings… (e.g. Laptop, Fridge, Physics textbook)"
             value={search}
             onChange={e => setSearch(e.target.value)}
             className="glass-input mkt-search-input"

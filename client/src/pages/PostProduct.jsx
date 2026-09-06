@@ -212,7 +212,7 @@ function ProductForm({ form, onChange, isPro, slotLabel = '' }) {
             <div className="pp-toggle-label">
               ⭐ Featured Listing <span className="pp-pro-tag">PRO</span>
             </div>
-            <div className="pp-toggle-hint">Appear in the Featured Products section on the marketplace</div>
+            <div className="pp-toggle-hint">Appear in the Featured Products section in the store</div>
           </div>
         </div>
       )}

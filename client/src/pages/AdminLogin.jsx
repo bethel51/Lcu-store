@@ -103,7 +103,7 @@ export default function AdminLogin() {
 
         <div style={styles.footerLink}>
           <Link to="/" style={{ color: 'var(--text-secondary)', fontSize: '0.85rem' }}>
-            ← Return to LCU Marketplace Homepage
+            ← Return to Lead City Store Homepage
           </Link>
         </div>
       </div>

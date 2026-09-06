@@ -3,7 +3,7 @@ dotenv.config();
 
 export const sendOTPEmail = async (email, name, otp) => {
   const apiKey = process.env.BREVO_API_KEY;
-  const senderEmail = process.env.BREVO_SENDER_EMAIL || 'no-reply@lcumarketplace.com';
+  const senderEmail = process.env.BREVO_SENDER_EMAIL || 'no-reply@lcustore.com';
 
   if (!apiKey) {
     console.log('\n======================================================');
@@ -22,21 +22,21 @@ export const sendOTPEmail = async (email, name, otp) => {
         'content-type': 'application/json'
       },
       body: JSON.stringify({
-        sender: { name: "LCU Student Marketplace", email: senderEmail },
+        sender: { name: "LCU Store", email: senderEmail },
         to: [{ email, name }],
-        subject: "Verify Your Email - LCU Student Marketplace",
+        subject: "Verify Your Email - LCU Store",
         htmlContent: `
           <html>
             <body style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #090f1d; color: #ffffff; padding: 30px; margin: 0;">
               <div style="max-width: 560px; margin: 0 auto; background: #131e33; padding: 40px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.08); text-align: center; box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);">
-                <h2 style="color: #60a5fa; margin-bottom: 24px; font-weight: 800; letter-spacing: -0.02em;">LCU Student Marketplace</h2>
+                <h2 style="color: #60a5fa; margin-bottom: 24px; font-weight: 800; letter-spacing: -0.02em;">LCU Store (LCS)</h2>
                 <p style="font-size: 1.1rem; color: #f8fafc; line-height: 1.5; margin-bottom: 16px;">Hello <b>${name}</b>,</p>
                 <p style="color: #94a3b8; line-height: 1.6; margin-bottom: 28px;">Use the secure verification code below to verify your student email and activate your account:</p>
                 <div style="font-size: 2.4rem; font-weight: 800; letter-spacing: 6px; color: #ffffff; background: linear-gradient(135deg, #1d4ed8 0%, #3b82f6 100%); padding: 18px 30px; margin: 24px auto; width: fit-content; border-radius: 10px; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);">
                   ${otp}
                 </div>
                 <p style="font-size: 0.85rem; color: #64748b; line-height: 1.5; margin-top: 28px; border-top: 1px solid rgba(255, 255, 255, 0.06); padding-top: 20px;">
-                  This code expires in 15 minutes. If you did not sign up for LCU Student Marketplace, you can safely ignore this email.
+                  This code expires in 15 minutes. If you did not sign up for LCU Store, you can safely ignore this email.
                 </p>
               </div>
             </body>
@@ -57,7 +57,7 @@ export const sendOTPEmail = async (email, name, otp) => {
 
 export const sendWelcomeEmail = async (email, name) => {
   const apiKey = process.env.BREVO_API_KEY;
-  const senderEmail = process.env.BREVO_SENDER_EMAIL || 'no-reply@lcumarketplace.com';
+  const senderEmail = process.env.BREVO_SENDER_EMAIL || 'no-reply@lcustore.com';
 
   if (!apiKey) {
     console.log('\n======================================================');
@@ -75,9 +75,9 @@ export const sendWelcomeEmail = async (email, name) => {
         'content-type': 'application/json'
       },
       body: JSON.stringify({
-        sender: { name: "LCU Student Marketplace", email: senderEmail },
+        sender: { name: "LCU Store", email: senderEmail },
         to: [{ email, name }],
-        subject: "Welcome to LCU Student Marketplace! 🎓🚀",
+        subject: "Welcome to LCU Store! 🎓🚀",
         htmlContent: `
           <html>
             <body style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #090f1d; color: #ffffff; padding: 30px; margin: 0;">
@@ -100,7 +100,7 @@ export const sendWelcomeEmail = async (email, name) => {
                 </div>
                 
                 <p style="font-size: 0.85rem; color: #64748b; line-height: 1.5; border-top: 1px solid rgba(255, 255, 255, 0.06); padding-top: 20px;">
-                  Enjoy trading safely! Always transact in public campus spaces.
+                  Enjoy trading safely on LCU Store! Always transact in public campus spaces.
                 </p>
               </div>
             </body>
@@ -120,7 +120,7 @@ export const sendWelcomeEmail = async (email, name) => {
 
 export const sendResetPasswordEmail = async (email, name, otp) => {
   const apiKey = process.env.BREVO_API_KEY;
-  const senderEmail = process.env.BREVO_SENDER_EMAIL || 'no-reply@lcumarketplace.com';
+  const senderEmail = process.env.BREVO_SENDER_EMAIL || 'no-reply@lcustore.com';
 
   if (!apiKey) {
     console.log('\n======================================================');
@@ -139,16 +139,16 @@ export const sendResetPasswordEmail = async (email, name, otp) => {
         'content-type': 'application/json'
       },
       body: JSON.stringify({
-        sender: { name: "LCU Student Marketplace", email: senderEmail },
+        sender: { name: "LCU Store", email: senderEmail },
         to: [{ email, name }],
-        subject: "Reset Your Password - LCU Student Marketplace",
+        subject: "Reset Your Password - LCU Store",
         htmlContent: `
           <html>
             <body style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #090f1d; color: #ffffff; padding: 30px; margin: 0;">
               <div style="max-width: 560px; margin: 0 auto; background: #131e33; padding: 40px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.08); text-align: center; box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);">
                 <h2 style="color: #60a5fa; margin-bottom: 24px; font-weight: 800; letter-spacing: -0.02em;">Password Reset Request</h2>
                 <p style="font-size: 1.1rem; color: #f8fafc; line-height: 1.5; margin-bottom: 16px;">Hello <b>${name}</b>,</p>
-                <p style="color: #94a3b8; line-height: 1.6; margin-bottom: 28px;">Use the verification code below to reset your password:</p>
+                <p style="color: #94a3b8; line-height: 1.6; margin-bottom: 28px;">Use the verification code below to reset your password on LCU Store:</p>
                 <div style="font-size: 2.4rem; font-weight: 800; letter-spacing: 6px; color: #ffffff; background: linear-gradient(135deg, #ef4444 0%, #f59e0b 100%); padding: 18px 30px; margin: 24px auto; width: fit-content; border-radius: 10px; box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);">
                   ${otp}
                 </div>
@@ -174,7 +174,7 @@ export const sendResetPasswordEmail = async (email, name, otp) => {
 
 export const sendBroadcastEmail = async (email, name, subject, message) => {
   const apiKey = process.env.BREVO_API_KEY;
-  const senderEmail = process.env.BREVO_SENDER_EMAIL || 'no-reply@lcumarketplace.com';
+  const senderEmail = process.env.BREVO_SENDER_EMAIL || 'no-reply@lcustore.com';
 
   if (!apiKey) {
     console.log('\n======================================================');
@@ -194,7 +194,7 @@ export const sendBroadcastEmail = async (email, name, subject, message) => {
         'content-type': 'application/json'
       },
       body: JSON.stringify({
-        sender: { name: "LCU Student Marketplace", email: senderEmail },
+        sender: { name: "LCU Store", email: senderEmail },
         to: [{ email, name }],
         subject: subject,
         htmlContent: `
@@ -207,7 +207,7 @@ export const sendBroadcastEmail = async (email, name, subject, message) => {
                   ${message.replace(/\n/g, '<br/>')}
                 </div>
                 <p style="font-size: 0.85rem; color: #64748b; line-height: 1.5; border-top: 1px solid rgba(255, 255, 255, 0.06); padding-top: 20px;">
-                  This is a system broadcast to all LCU Student Marketplace users.
+                  This is a system broadcast to all LCU Store users.
                 </p>
               </div>
             </body>
@@ -227,7 +227,7 @@ export const sendBroadcastEmail = async (email, name, subject, message) => {
 
 export const sendOrderReceiptEmail = async ({ email, name, order, product, seller }) => {
   const apiKey = process.env.BREVO_API_KEY;
-  const senderEmail = process.env.BREVO_SENDER_EMAIL || 'no-reply@lcumarketplace.com';
+  const senderEmail = process.env.BREVO_SENDER_EMAIL || 'no-reply@lcustore.com';
 
   const amountFormatted = `₦${order.amount.toLocaleString()}`;
 
@@ -251,15 +251,15 @@ export const sendOrderReceiptEmail = async ({ email, name, order, product, selle
         'content-type': 'application/json'
       },
       body: JSON.stringify({
-        sender: { name: "LCU Student Marketplace", email: senderEmail },
+        sender: { name: "LCU Store", email: senderEmail },
         to: [{ email, name }],
-        subject: `Your LCU Market Order Receipt — ${product.name}`,
+        subject: `Your LCU Store Order Receipt — ${product.name}`,
         htmlContent: `
           <html>
             <body style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #060c1a; color: #ffffff; padding: 30px; margin: 0;">
               <div style="max-width: 560px; margin: 0 auto; background: #0e1628; padding: 40px; border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.55);">
                 <div style="text-align: center; margin-bottom: 30px;">
-                  <h2 style="color: #60a5fa; font-weight: 800; margin: 0;">LCU Student Marketplace</h2>
+                  <h2 style="color: #60a5fa; font-weight: 800; margin: 0;">LCU Store</h2>
                   <p style="color: #94a3b8; font-size: 0.9rem; margin: 4px 0 0 0;">Official Purchase & Escrow Receipt</p>
                 </div>
                 
@@ -316,7 +316,7 @@ export const sendOrderReceiptEmail = async ({ email, name, order, product, selle
                 </div>
 
                 <p style="font-size: 0.85rem; color: #64748b; line-height: 1.5; border-top: 1px solid rgba(255, 255, 255, 0.06); padding-top: 20px; text-align: center;">
-                  Protecting your funds via Escrow. When you meet, inspect the item. Only release payment in your Dashboard once you are satisfied with your item.
+                  Protecting your funds via Escrow on LCU Store. When you meet, inspect the item. Only release payment in your Dashboard once you are satisfied with your item.
                 </p>
               </div>
             </body>
@@ -332,7 +332,7 @@ export const sendOrderReceiptEmail = async ({ email, name, order, product, selle
 
 export const sendSellerNotificationEmail = async ({ email, name, buyerName, order, product }) => {
   const apiKey = process.env.BREVO_API_KEY;
-  const senderEmail = process.env.BREVO_SENDER_EMAIL || 'no-reply@lcumarketplace.com';
+  const senderEmail = process.env.BREVO_SENDER_EMAIL || 'no-reply@lcustore.com';
   const amountFormatted = `₦${Number(order.amount).toLocaleString()}`;
 
   if (!apiKey) {
@@ -355,7 +355,7 @@ export const sendSellerNotificationEmail = async ({ email, name, buyerName, orde
         'content-type': 'application/json'
       },
       body: JSON.stringify({
-        sender: { name: "LCU Student Marketplace", email: senderEmail },
+        sender: { name: "LCU Store", email: senderEmail },
         to: [{ email, name }],
         subject: `🎉 Your item has been purchased! — ${product.name}`,
         htmlContent: `
@@ -364,7 +364,7 @@ export const sendSellerNotificationEmail = async ({ email, name, buyerName, orde
               <div style="max-width: 560px; margin: 0 auto; background: #0e1628; padding: 40px; border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.55);">
                 <div style="text-align: center; margin-bottom: 30px;">
                   <h2 style="color: #10b981; font-weight: 800; margin: 0;">Item Purchased! 🎉</h2>
-                  <p style="color: #94a3b8; font-size: 0.9rem; margin: 4px 0 0 0;">LCU Student Marketplace</p>
+                  <p style="color: #94a3b8; font-size: 0.9rem; margin: 4px 0 0 0;">LCU Store (LCS)</p>
                 </div>
                 
                 <p style="font-size: 1.05rem; color: #f8fafc; line-height: 1.5; margin-bottom: 16px;">Hello <b>${name}</b>,</p>
@@ -402,7 +402,7 @@ export const sendSellerNotificationEmail = async ({ email, name, buyerName, orde
                 </div>
                 
                 <p style="font-size: 0.85rem; color: #64748b; line-height: 1.5; border-top: 1px solid rgba(255, 255, 255, 0.06); padding-top: 20px; text-align: center;">
-                  Thank you for selling on LCU Student Marketplace! Need help? Open internal chats to converse directly with your buyer.
+                  Thank you for selling on LCU Store! Need help? Open internal chats to converse directly with your buyer.
                 </p>
               </div>
             </body>
@@ -419,3 +419,4 @@ export const sendSellerNotificationEmail = async ({ email, name, buyerName, orde
     console.error('Failed to send seller notification email via Brevo:', error.message);
   }
 };
+

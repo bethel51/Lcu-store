@@ -311,13 +311,13 @@ router.post('/confirm-delivery/:orderId', protect, async (req, res) => {
     // Notify seller: money has landed in their wallet
     await createNotification(
       order.seller,
-      `🎉 ₦${order.amount.toLocaleString()} has been credited to your LCU Marketplace wallet!`,
+      `🎉 ₦${order.amount.toLocaleString()} has been credited to your LCU Store wallet!`,
       'success'
     );
     // Notify buyer: delivery confirmed
     await createNotification(
       order.buyer,
-      `👍 Delivery confirmed! Thank you for using LCU Marketplace.`,
+      `👍 Delivery confirmed! Thank you for using LCU Store.`,
       'success'
     );
 
@@ -503,7 +503,7 @@ router.post('/charge', protect, async (req, res) => {
         txRef,
         bankName: 'Wema Bank (LCU Escrow Provider)',
         accountNumber: simulatedAccount,
-        accountName: `LCU Marketplace Escrow - ${order.amount} NGN`,
+        accountName: `LCU Store Escrow - ${order.amount} NGN`,
         amount: order.amount
       });
     } else if (method === 'ussd') {
@@ -673,7 +673,7 @@ router.post('/sweep-wallet', protect, async (req, res) => {
           account_bank: user.payoutBankCode,
           account_number: user.payoutAccountNumber,
           amount: balance,
-          narrative: `LCU Marketplace Sweep - ${user.name}`,
+          narrative: `LCU Store Sweep - ${user.name}`,
           currency: 'NGN',
           reference: `lcu-sweep-${Date.now()}`
         })

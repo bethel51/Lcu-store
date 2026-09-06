@@ -169,7 +169,7 @@ export default function Withdraw() {
         </button>
         <h2 style={styles.title}>💸 Withdraw Escrow Funds</h2>
         <p style={styles.subtitle}>
-          Transfer your cleared marketplace earnings directly to your bank account or mobile wallet.
+          Transfer your cleared store earnings directly to your bank account or mobile wallet.
         </p>
 
         {/* Balance Card */}

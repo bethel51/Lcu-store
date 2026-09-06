@@ -89,7 +89,7 @@ export default function Home() {
       {/* Hero section */}
       <header style={styles.hero} className="glass-panel hero-card">
         <h1 style={styles.heroTitle} className="hero-title">
-          LCU Student <span style={{ color: 'var(--gold)' }}>Marketplace</span>
+          LCU Student <span style={{ color: 'var(--gold)' }}>Store</span>
         </h1>
         <p style={styles.heroSub}>
           Buy, sell, and swap gadgets, textbooks, hostel equipment, or list your student services securely.

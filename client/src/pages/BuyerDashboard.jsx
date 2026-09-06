@@ -246,7 +246,7 @@ export default function BuyerDashboard() {
 
           <div className="buyer-dash-quick">
             <p className="buyer-dash-quick-title">Quick Access</p>
-            <Link to="/marketplace" className="buyer-dash-quick-btn">🏪 Browse Marketplace</Link>
+            <Link to="/marketplace" className="buyer-dash-quick-btn">🏪 Browse Store</Link>
             <Link to="/marketplace?category=Electronics" className="buyer-dash-quick-btn">📱 Electronics</Link>
             <Link to="/marketplace?category=Books" className="buyer-dash-quick-btn">📚 Textbooks</Link>
             <Link to="/marketplace?category=Clothing%20%26%20Fashion" className="buyer-dash-quick-btn">👗 Clothing & Fashion</Link>
@@ -279,7 +279,7 @@ export default function BuyerDashboard() {
             <div className="buyer-dash-greeting">
               <div>
                 <h1 className="buyer-dash-greeting-title">{greeting}, {user?.name?.split(' ')[0]} 👋</h1>
-                <p className="buyer-dash-greeting-sub">Here's a snapshot of your shopping activity on LCU Marketplace</p>
+                <p className="buyer-dash-greeting-sub">Here's a snapshot of your shopping activity on Lead City Store</p>
               </div>
               <Link to="/marketplace" className="btn-primary buyer-dash-browse-btn">🏪 Browse Now</Link>
             </div>
@@ -383,7 +383,7 @@ export default function BuyerDashboard() {
               <div className="buyer-dash-empty">
                 <div className="buyer-dash-empty-icon">🛒</div>
                 <p>No purchases yet.</p>
-                <Link to="/marketplace" className="btn-primary" style={{ marginTop: '12px', padding: '10px 24px' }}>Browse Marketplace</Link>
+                <Link to="/marketplace" className="btn-primary" style={{ marginTop: '12px', padding: '10px 24px' }}>Browse Store</Link>
               </div>
             )}
 
@@ -415,7 +415,7 @@ export default function BuyerDashboard() {
             <div className="buyer-dash-quick mobile-only-quick" style={{ marginTop: '32px' }}>
               <p className="buyer-dash-quick-title">⚡ Quick Access</p>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
-                <Link to="/marketplace" className="buyer-dash-quick-btn" style={{ margin: 0, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '6px' }}>🏪 Marketplace</Link>
+                <Link to="/marketplace" className="buyer-dash-quick-btn" style={{ margin: 0, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '6px' }}>🏪 Store</Link>
                 <Link to="/marketplace?category=Gadgets" className="buyer-dash-quick-btn" style={{ margin: 0, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '6px' }}>💻 Gadgets</Link>
                 <Link to="/marketplace?category=Textbooks%20%26%20Handouts" className="buyer-dash-quick-btn" style={{ margin: 0, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '6px' }}>📚 Textbooks</Link>
                 <Link to="/marketplace?category=Clothing%20%26%20Fashion" className="buyer-dash-quick-btn" style={{ margin: 0, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '6px' }}>👗 Fashion</Link>
@@ -487,7 +487,7 @@ export default function BuyerDashboard() {
               <div className="buyer-dash-empty">
                 <div className="buyer-dash-empty-icon">🛒</div>
                 <p>No purchases yet.</p>
-                <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '4px' }}>Browse the marketplace and find great deals from fellow LCU students.</p>
+                <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '4px' }}>Browse the store and find great deals from fellow LCU students.</p>
                 <Link to="/marketplace" className="btn-primary" style={{ marginTop: '16px', padding: '12px 28px' }}>Start Shopping</Link>
               </div>
             )}
@@ -541,7 +541,7 @@ export default function BuyerDashboard() {
               <div className="buyer-dash-empty">
                 <div className="buyer-dash-empty-icon">👜</div>
                 <p>Your bag is empty.</p>
-                <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '4px' }}>Add items from the marketplace to your bag and never miss a deal.</p>
+                <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '4px' }}>Add items from the store to your bag and never miss a deal.</p>
                 <Link to="/marketplace" className="btn-primary" style={{ marginTop: '16px', padding: '12px 28px' }}>Explore Listings</Link>
               </div>
             )}
@@ -598,7 +598,7 @@ export default function BuyerDashboard() {
               <div style={{ flex: 1 }}>
                 <h3 style={{ fontSize: '1rem', fontWeight: '700', marginBottom: '4px', color: 'var(--text-primary)' }}>Want to start selling?</h3>
                 <p style={{ fontSize: '0.83rem', color: 'var(--text-secondary)', margin: 0 }}>
-                  List your items on LCU Marketplace and earn money from fellow students. Switch to a Seller account to get started.
+                  List your items on Lead City Store and earn money from fellow students. Switch to a Seller account to get started.
                 </p>
               </div>
               <button
