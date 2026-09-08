@@ -26,6 +26,9 @@ const notificationSchema = new mongoose.Schema({
   }
 });
 
+// Compound index for fast notification fetching
+notificationSchema.index({ recipient: 1, createdAt: -1 });
+
 // TTL index — auto-delete notifications older than 30 days
 notificationSchema.index({ createdAt: 1 }, { expireAfterSeconds: 30 * 24 * 60 * 60 });
 

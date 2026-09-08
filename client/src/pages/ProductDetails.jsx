@@ -56,6 +56,17 @@ export default function ProductDetails() {
       if (response.ok) {
         setProduct(data);
         setActiveImgIndex(0);
+
+        // Preload next gallery images in background for instant swiping/switching
+        if (Array.isArray(data.images) && data.images.length > 1) {
+          data.images.slice(1).forEach(imgItem => {
+            const src = resolveImageUrl(imgItem);
+            if (src && !src.startsWith('data:')) {
+              const preloader = new Image();
+              preloader.src = src;
+            }
+          });
+        }
         
         // Track view count for analytics
         fetch(`${API_URL}/api/products/${id}/view`, { method: 'POST' }).catch(err => console.error(err));

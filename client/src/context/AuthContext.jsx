@@ -20,15 +20,19 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const initAuth = async () => {
       const savedToken = localStorage.getItem('lcu_token');
+      const savedUser = localStorage.getItem('lcu_user');
+      // Instant launch: unblock UI immediately if user is already saved locally
+      if (savedUser) {
+        setInitializing(false);
+      }
       if (savedToken) {
         try {
           const profile = await fetchProfile(savedToken);
-          if (!profile) {
+          if (!profile && !savedUser) {
             logout();
           }
         } catch (err) {
           console.error('Auth initialization error:', err);
-          logout();
         }
       }
       setInitializing(false);

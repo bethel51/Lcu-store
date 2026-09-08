@@ -75,5 +75,10 @@ const orderSchema = new mongoose.Schema({
   timestamps: true
 });
 
+// Indexes for fast dashboard and transaction queries
+orderSchema.index({ seller: 1, createdAt: -1 });
+orderSchema.index({ buyer: 1, createdAt: -1 });
+orderSchema.index({ paymentStatus: 1, escrowStatus: 1 });
+
 const Order = mongoose.model('Order', orderSchema);
 export default Order;

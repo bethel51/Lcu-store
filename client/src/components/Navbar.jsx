@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
 import { useCart } from '../context/CartContext';
 import { resolveImageUrl } from '../utils/imageUrl';
+import { API_URL } from '../config';
 
 const HOSTELS = [
   'Bronze Hostel','Silver Hostel','Gold Hostel','Platinum Hostel',
@@ -144,7 +145,7 @@ export default function Navbar() {
   const fetchNotifications = React.useCallback(async () => {
     if (!token) return;
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/notifications`, {
+      const res = await fetch(`${API_URL}/api/notifications`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (res.ok) {
@@ -160,7 +161,7 @@ export default function Navbar() {
   const handleMarkAsRead = async () => {
     if (!token) return;
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/notifications/read`, {
+      const res = await fetch(`${API_URL}/api/notifications/read`, {
         method: 'PUT',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -176,7 +177,7 @@ export default function Navbar() {
   const handleClearNotifications = async () => {
     if (!token) return;
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/notifications`, {
+      const res = await fetch(`${API_URL}/api/notifications`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -196,9 +197,25 @@ export default function Navbar() {
   React.useEffect(() => {
     if (token) {
       fetchNotifications();
-      // Poll every 30 seconds for live updates
-      const interval = setInterval(fetchNotifications, 30000);
-      return () => clearInterval(interval);
+      // Smart poll: only poll when tab is actively visible to save mobile data & battery
+      const interval = setInterval(() => {
+        if (!document.hidden) {
+          fetchNotifications();
+        }
+      }, 30000);
+
+      // Immediately fetch when tab becomes active again
+      const onVisibilityChange = () => {
+        if (!document.hidden) {
+          fetchNotifications();
+        }
+      };
+      document.addEventListener('visibilitychange', onVisibilityChange);
+
+      return () => {
+        clearInterval(interval);
+        document.removeEventListener('visibilitychange', onVisibilityChange);
+      };
     }
   }, [token, fetchNotifications]);
 
