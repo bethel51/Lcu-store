@@ -5,6 +5,7 @@ import { useToast } from '../context/ToastContext';
 import { API_URL } from '../config';
 import { compressImage } from '../utils/imageCompressor';
 import { UploadIcon, SettingsIcon, EditIcon, StoreIcon, StarIcon, XIcon } from '../components/Icons';
+import LoadingDots from '../components/LoadingDots';
 import { resolveImageUrl } from '../utils/imageUrl';
 
 // ── PRO: Shared form field definitions ────────────────────────────
@@ -435,9 +436,8 @@ export default function PostProduct() {
 
   if (fetchingData) {
     return (
-      <div style={styles.loaderWrap}>
-        <div style={styles.spinner} />
-        <p style={styles.loaderText}>Loading listing details…</p>
+      <div style={styles.loaderWrap} className="animate-fade-in">
+        <LoadingDots size="md" color="blue" message="Loading listing details…" minHeight="50vh" />
       </div>
     );
   }

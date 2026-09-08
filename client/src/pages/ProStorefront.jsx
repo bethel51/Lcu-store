@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { API_URL } from '../config';
 import { ProBadge } from './ProDashboard';
 import { VerifiedBadge } from '../components/ProductCard';
+import LoadingDots from '../components/LoadingDots';
 import { resolveImageUrl } from '../utils/imageUrl';
 
 // ── Status dot helper ──────────────────────────────────────────
@@ -68,9 +69,8 @@ export default function ProStorefront() {
 
   if (loading) {
     return (
-      <div className="pro-storefront-loading container">
-        <div className="page-loader-spinner" style={{ width: 48, height: 48 }} />
-        <p style={{ marginTop: 16, color: 'var(--text-gray)' }}>Loading storefront…</p>
+      <div className="pro-storefront-loading container animate-fade-in" style={{ minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <LoadingDots size="lg" color="blue" message="Loading seller storefront…" minHeight="50vh" />
       </div>
     );
   }

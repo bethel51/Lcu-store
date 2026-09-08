@@ -5,6 +5,7 @@ import { useToast } from '../context/ToastContext';
 import { useCart } from '../context/CartContext';
 import { API_URL } from '../config';
 import { VerifiedBadge } from '../components/ProductCard';
+import LoadingDots from '../components/LoadingDots';
 import { resolveImageUrl, getCategoryFallback } from '../utils/imageUrl';
 
 export default function ProductDetails() {
@@ -308,8 +309,8 @@ export default function ProductDetails() {
 
   if (loading) {
     return (
-      <div style={styles.center} className="container">
-        <p>Loading listing details...</p>
+      <div style={styles.center} className="container animate-fade-in">
+        <LoadingDots size="lg" color="blue" message="Loading listing details…" minHeight="65vh" />
       </div>
     );
   }

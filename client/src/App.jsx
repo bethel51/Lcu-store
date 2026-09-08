@@ -4,6 +4,7 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import { ToastProvider } from './context/ToastContext';
 import Navbar from './components/Navbar';
 import OfflineOverlay from './components/OfflineOverlay';
+import LoadingDots from './components/LoadingDots';
 import { CartProvider } from './context/CartContext';
 import './App.css';
 
@@ -102,13 +103,8 @@ function ScrollToTop() {
 // ── Premium in-app page loader (Suspense fallback) ────────────
 function PageLoader() {
   return (
-    <div className="page-loader">
-      <div className="page-loader-spinner" />
-      <div className="page-loader-skeletons">
-        <div className="page-loader-skel" style={{ width: '60%' }} />
-        <div className="page-loader-skel" style={{ width: '80%' }} />
-        <div className="page-loader-skel" style={{ width: '50%' }} />
-      </div>
+    <div className="page-loader" style={{ minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <LoadingDots size="lg" message="Loading Lead City Store…" minHeight="50vh" />
     </div>
   );
 }

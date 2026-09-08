@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
 import { API_URL } from '../config';
 import { VerifiedBadge } from '../components/ProductCard';
+import LoadingDots from '../components/LoadingDots';
 import { resolveImageUrl } from '../utils/imageUrl';
 
 export default function AdminDashboard() {
@@ -169,9 +170,8 @@ export default function AdminDashboard() {
 
   if (loading) {
     return (
-      <div style={{ height: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: '16px' }} className="container">
-        <div style={{ width: '44px', height: '44px', border: '4px solid var(--border-color)', borderTop: '4px solid var(--gold)', borderRadius: '50%', animation: 'spin 1s linear infinite' }} />
-        <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Loading Admin Panel…</p>
+      <div className="container animate-fade-in" style={{ height: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <LoadingDots size="lg" color="blue" message="Loading Admin Panel…" minHeight="50vh" />
       </div>
     );
   }

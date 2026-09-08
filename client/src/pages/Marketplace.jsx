@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ProductCard from '../components/ProductCard';
+import LoadingDots from '../components/LoadingDots';
 import { useAuth } from '../context/AuthContext';
 import { API_URL } from '../config';
 
@@ -352,15 +353,18 @@ export default function Marketplace() {
       {/* ─── Product Grid ─────────────────────────────────────── */}
       <main className="mkt-grid-area">
         {loading ? (
-          <div className="grid-cols-auto">
-            {[1, 2, 3, 4, 5, 6].map(i => (
-              <div key={i} className="skeleton-card">
-                <div className="skeleton-img" />
-                <div className="skeleton-line" style={{ marginTop: '16px' }} />
-                <div className="skeleton-line medium" />
-                <div className="skeleton-line short" style={{ marginBottom: '16px' }} />
-              </div>
-            ))}
+          <div style={{ width: '100%', padding: '10px 0 30px' }} className="animate-fade-in">
+            <LoadingDots size="md" color="blue" message="Finding best items across campus…" minHeight="140px" />
+            <div className="grid-cols-auto" style={{ opacity: 0.5 }}>
+              {[1, 2, 3, 4].map(i => (
+                <div key={i} className="skeleton-card">
+                  <div className="skeleton-img" />
+                  <div className="skeleton-line" style={{ marginTop: '16px' }} />
+                  <div className="skeleton-line medium" />
+                  <div className="skeleton-line short" style={{ marginBottom: '16px' }} />
+                </div>
+              ))}
+            </div>
           </div>
         ) : sortedProducts.length > 0 ? (
           <div className="grid-cols-auto">

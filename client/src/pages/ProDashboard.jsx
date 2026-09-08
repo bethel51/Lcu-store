@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 import { useToast } from '../context/ToastContext';
 import { API_URL } from '../config';
+import LoadingDots from '../components/LoadingDots';
 import {
   CrownIcon,
   StarIcon,
@@ -432,9 +433,8 @@ export default function ProDashboard() {
 
   if (loading) {
     return (
-      <div className="pro-dashboard-loading">
-        <div className="page-loader-spinner" style={{ width: 48, height: 48 }} />
-        <p style={{ marginTop: 16, color: 'var(--text-gray)' }}>Loading PRO Dashboard…</p>
+      <div className="pro-dashboard container animate-fade-in" style={{ minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <LoadingDots size="lg" color="gold" message="Loading PRO Seller Dashboard…" minHeight="50vh" />
       </div>
     );
   }

@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useToast } from '../context/ToastContext';
 import { API_URL } from '../config';
 import { VerifiedBadge } from '../components/ProductCard';
+import LoadingDots from '../components/LoadingDots';
 import { resolveImageUrl } from '../utils/imageUrl';
 
 const HOSTELS = [
@@ -196,9 +197,8 @@ export default function BuyerDashboard() {
   ];
 
   if (loading) return (
-    <div style={{ height: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: '16px' }} className="container">
-      <div style={{ width: '44px', height: '44px', border: '4px solid var(--border-color)', borderTop: '4px solid var(--gold)', borderRadius: '50%', animation: 'spin 1s linear infinite' }} />
-      <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Loading your dashboard…</p>
+    <div className="container animate-fade-in" style={{ height: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <LoadingDots size="md" color="blue" message="Loading your account dashboard…" minHeight="50vh" />
     </div>
   );
 

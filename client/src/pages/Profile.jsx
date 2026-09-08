@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
 import { useToast } from '../context/ToastContext';
 import { API_URL } from '../config';
+import LoadingDots from '../components/LoadingDots';
 import { resolveImageUrl } from '../utils/imageUrl';
 
 export default function Profile() {
@@ -120,8 +121,8 @@ export default function Profile() {
 
   if (loading) {
     return (
-      <div style={styles.center} className="container">
-        <p>Loading profile details...</p>
+      <div style={styles.center} className="container animate-fade-in">
+        <LoadingDots size="md" color="blue" message="Loading profile details…" minHeight="60vh" />
       </div>
     );
   }
